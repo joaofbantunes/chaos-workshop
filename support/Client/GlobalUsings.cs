@@ -1,0 +1,1 @@
+global using static ChaosWorkshop.Client.ObservabilityShared.Tracing;

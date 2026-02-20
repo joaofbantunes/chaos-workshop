@@ -1,0 +1,73 @@
+name: chaos-workshop
+
+services:
+  order-service:
+    build:
+      context: .
+      dockerfile: src/OrderService/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ConnectionStrings__Default=server=chaos-pg;port=5432;user id=user;password=pass;database=chaos_order_service
+      - ApiClients__Menu__BaseAddress=http://http-proxy:8080/menu/
+      - ApiClients__Loyalty__BaseAddress=http://http-proxy:8080/loyalty/
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://chaos-lgtm:4317
+    labels:
+      chaos.disruption.target: true
+      chaos.disruption.type: abrupt-kill
+    depends_on:
+      - postgres
+
+  menu-service:
+    build:
+      context: .
+      dockerfile: support/MenuService/Dockerfile
+    ports:
+      - "8001:8080"
+    environment:
+      - ConnectionStrings__Default=server=chaos-pg;port=5432;user id=user;password=pass;database=chaos_menu_service
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://chaos-lgtm:4317
+    labels:
+      chaos.disruption.target: true
+      chaos.disruption.type: abrupt-kill
+    depends_on:
+      - postgres
+
+  loyalty-service:
+    build:
+      context: .
+      dockerfile: support/LoyaltyService/Dockerfile
+    ports:
+      - "8002:8080"
+    environment:
+      - ConnectionStrings__Default=server=chaos-pg;port=5432;user id=user;password=pass;database=chaos_loyalty_service
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://chaos-lgtm:4317
+    labels:
+      chaos.disruption.target: true
+      chaos.disruption.type: abrupt-kill
+    depends_on:
+      - postgres
+
+  http-proxy:
+    build:
+      context: .
+      dockerfile: support/HttpProxy/Dockerfile
+    ports:
+      - "8000:8080"
+    volumes:
+      - ./appsettings.httpproxy.docker.json:/app/appsettings.docker.json
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://chaos-lgtm:4317
+
+  container-disruptor:
+    build:
+      context: .
+      dockerfile: support/ContainerDisruptor/Dockerfile
+    ports:
+      - "8003:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    privileged: true
+    user: root # for it to access docker.sock
+    environment:
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://chaos-lgtm:4317

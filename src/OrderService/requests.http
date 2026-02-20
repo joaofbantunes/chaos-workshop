@@ -1,0 +1,17 @@
+# just for a quick test
+POST http://localhost:8080/orders
+Content-Type: application/json
+
+{
+  "customerId": "d3932515-c8bf-45e7-af54-92cd0c73a9e2",
+  "items": [
+    {
+      "id": "burger",
+      "quantity": 2
+    },
+    {
+      "id": "fries",
+      "quantity": 1
+    }
+  ]
+}

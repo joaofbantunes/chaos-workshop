@@ -1,0 +1,1 @@
+global using static ChaosWorkshop.LoyaltyService.Features.Shared.Observability.ObservabilityShared.Tracing;

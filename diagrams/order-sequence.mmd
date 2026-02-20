@@ -1,0 +1,9 @@
+sequenceDiagram
+    Client->>+Order Service: Place Order
+    Order Service->>+Menu Service: Get Products Price
+    Menu Service-->>-Order Service: Products Price
+    Order Service->>+Loyalty Service: Get Discount
+    Loyalty Service-->>-Order Service: Discount percentage
+    Order Service->>+Loyalty Service: Communicate new order
+    Loyalty Service-->>-Order Service: Acknowledge
+    Order Service-->>-Client: Order Placed Successfully

@@ -1,0 +1,1 @@
+global using static ChaosWorkshop.HttpProxy.Features.Shared.Observability.ObservabilityShared.Tracing;

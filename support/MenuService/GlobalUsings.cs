@@ -1,0 +1,1 @@
+global using static ChaosWorkshop.MenuService.Features.Shared.Observability.ObservabilityShared.Tracing;

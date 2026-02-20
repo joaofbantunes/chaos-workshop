@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Solution Items/" />
+  <Folder Name="/src/">
+    <Project Path="src/OrderService/OrderService.csproj" />
+  </Folder>
+  <Folder Name="/support/">
+    <Project Path="support/Client/Client.csproj" />
+    <Project Path="support/HttpProxy/HttpProxy.csproj" />
+    <Project Path="support/LoyaltyService/LoyaltyService.csproj" />
+    <Project Path="support/MenuService/MenuService.csproj" />
+    <Project Path="support/ContainerDisruptor/ContainerDisruptor.csproj" />
+  </Folder>
+</Solution>

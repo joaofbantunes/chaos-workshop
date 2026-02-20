@@ -1,0 +1,1 @@
+global using static ChaosWorkshop.OrderService.Features.Shared.Observability.ObservabilityShared.Tracing;
